@@ -1,0 +1,7 @@
+{
+  "/rcp/mgnt/v0/*": {
+    "target": "http://34.230.109.169:8080",
+    "secure": true,
+    "logLevel": "debug"
+  }
+}

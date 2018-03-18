@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+	<appender name="root-logger" class="org.apache.log4j.RollingFileAppender">
+	    <param name="MaxFileSize" value="5MB"/>
+	    <param name="MaxBackupIndex" value="5"/>
+		<param name="File" value="${catalina.base}/logs/map-he/system-fw.log" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss,SSS} %-5p [%C] (%t) %m%n" />
+		</layout>
+	</appender>
+	
+	<appender name="bootstrap" class="org.apache.log4j.RollingFileAppender">
+	    <param name="MaxFileSize" value="50MB"/>
+	    <param name="MaxBackupIndex" value="50"/>
+		<param name="File" value="${catalina.base}/logs/map-he/bootstrap.log" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss,SSS} %-5p [%C] (%t) %m%n" />
+		</layout>
+	</appender>
+		
+	<appender name="alerts-appender" class="org.apache.log4j.RollingFileAppender">
+	    <param name="MaxFileSize" value="10MB"/>
+	    <param name="MaxBackupIndex" value="200"/>
+		<param name="File" value="${catalina.base}/logs/map-he/alerts.json" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%m%n" />
+		</layout>
+	</appender>
+	
+	<logger name="org.springframework">
+		<level value="info" />
+	</logger>
+
+	<logger name="org.apache">
+		<level value="warn" />
+	</logger>
+		
+	<logger name="com.datami.dsp.dls.alerts" additivity="false">
+		<level value="warn" />
+		<appender-ref ref="alerts-appender" />
+	</logger>
+	
+	<logger name="com.datami.dsp.dls" additivity="false">
+		<level value="info" />
+		<appender-ref ref="bootstrap" />
+	</logger>
+	
+	<root>
+		<priority value="info" />
+		<appender-ref ref="root-logger" />
+	</root>
+	
+
+</log4j:configuration>
